@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavorly Bites – Flavorful Bite Every Time</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon from original site -->
+    <link rel="icon" href="http://flavorly-bites.local/wp-content/uploads/2025/06/FlavorlyBites-150x150.png" sizes="32x32" />
+
+    <style>
+        /* CSS to hide the theme's header, footer, and remove extra spacing */
+        #masthead, #colophon, .entry-hero {
+            display: none !important;
+        }
+
+        /* Remove margin added by WordPress admin bar */
+        html {
+            margin-top: 0 !important;
+        }
+
+        /* Remove theme's content wrappers and spacing */
+        body.content-style-boxed .site-container, 
+        .content-area,
+        .content-wrap,
+        .entry-content-wrap,
+        body.content-style-boxed #primary.content-area,
+        .entry-content {
+            margin: 0 !important;
+            padding: 0 !important;
+            max-width: 100% !important;
+        }
+        
+        .entry.single-entry, 
+        .content-style-boxed .content-wrap {
+            padding: 0 !important;
+            box-shadow: none !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Custom styles for the new design */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7FAFC; /* Light grey background from original theme */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1598866594240-a_27d2a18824?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo and Site Title -->
+            <a href="http://flavorly-bites.local/" class="flex items-center space-x-3">
+                <img src="http://flavorly-bites.local/wp-content/uploads/2025/06/FlavorlyBites.png" alt="Flavorly Bites Logo" class="h-12 w-12"  onerror="this.onerror=null;this.src='https://placehold.co/100x100/f3b899/4A5568?text=FB';">
+                <span class="text-2xl font-bold text-gray-800 font-serif">Flavorly Bites</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="http://flavorly-bites.local/" class="text-gray-600 hover:text-orange-500 transition duration-300">Home</a>
+                <a href="http://flavorly-bites.local/" class="text-gray-600 hover:text-orange-500 transition duration-300">Recipes</a>
+                <a href="#" class="text-gray-600 hover:text-orange-500 transition duration-300">About</a>
+                <a href="#" class="text-gray-600 hover:text-orange-500 transition duration-300">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <nav class="px-4 pt-2 pb-4 space-y-2">
+                <a href="http://flavorly-bites.local/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Home</a>
+                <a href="http://flavorly-bites.local/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Recipes</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">About</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-bg text-white">
+            <div class="bg-black bg-opacity-40 min-h-[60vh] flex items-center">
+                <div class="container mx-auto px-6 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">A Flavorful Bite, Every Time</h1>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Discover delicious and easy-to-make recipes that will inspire you to get creative in the kitchen.</p>
+                    <a href="http://flavorly-bites.local/" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Recipes</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Recipes Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Latest Recipes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                    <!-- Recipe Card 1: Goat Cheese Breakfast -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/">
+                            <img src="https://images.unsplash.com/photo-1598589973824-353605555e3e?q=80&w=1974&auto=format&fit=crop" alt="Toast with goat cheese and figs" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/a3e635/4A5568?text=Goat+Cheese+Breakfast';">
+                        </a>
+                        <div class="p-6">
+                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/" class="hover:text-orange-500">13 Goat Cheese Breakfast Ideas</a></h3>
+                            <p class="text-gray-600 mb-4">These ideas will make you jump out of bed, ready for a delicious start to your day.</p>
+                            <a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe Card 2: High-Protein Vegetarian Breakfast -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/">
+                            <img src="https://images.unsplash.com/photo-1484980972926-ed5a6c086127?q=80&w=2070&auto=format&fit=crop" alt="High-Protein Vegetarian Breakfast Bowl" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fbbf24/4A5568?text=Vegetarian+Bowl';">
+                        </a>
+                        <div class="p-6">
+                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/" class="hover:text-orange-500">High-Protein Vegetarian Breakfasts</a></h3>
+                            <p class="text-gray-600 mb-4">You’ll never miss the meat with these satisfying and protein-packed breakfast options.</p>
+                            <a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Recipe Card 3: Breakfast Pizza -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/">
+                            <img src="https://images.unsplash.com/photo-1588315029704-3434b3e5157b?q=80&w=1964&auto=format&fit=crop" alt="Breakfast pizza with eggs and greens" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f87171/4A5568?text=Breakfast+Pizza';">
+                        </a>
+                        <div class="p-6">
+                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/" class="hover:text-orange-500">11 Genius Pizza Crust Breakfast Ideas</a></h3>
+                            <p class="text-gray-600 mb-4">A creative and fun way to start your day using a simple pizza crust.</p>
+                            <a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                     <a href="http://flavorly-bites.local/" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">View All Recipes</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section class="py-16 bg-orange-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-xl shadow-lg">
+                    <div class="md:w-1/3 text-center mb-6 md:mb-0">
+                        <img src="http://flavorly-bites.local/wp-content/uploads/2025/06/Sarah-128x128.png" alt="Sarah, the author" class="w-40 h-40 rounded-full mx-auto shadow-md border-4 border-white" onerror="this.onerror=null;this.src='https://placehold.co/128x128/f3b899/FFFFFF?text=Sarah';">
+                    </div>
+                    <div class="md:w-2/3 md:pl-10 text-center md:text-left">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-4">Hi, I'm Sarah!</h2>
+                        <p class="text-gray-600 text-lg mb-6">Welcome to Flavorly Bites! I'm a passionate home cook dedicated to creating and sharing recipes that are both approachable and incredibly tasty. My goal is to bring joy to your kitchen, one flavorful bite at a time. </p>
+                        <a href="#" class="font-bold text-orange-500 text-lg hover:underline">Learn more about me</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Recipe Categories Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Browse By Category</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Category Card -->
+                    <a href="http://flavorly-bites.local/category/summer-recipes/" class="group text-center">
+                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
+                            <!-- SVG Icon for Summer Recipes -->
+                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Summer Recipes</h3>
+                    </a>
+                    <!-- Category Card -->
+                    <a href="http://flavorly-bites.local/category/desserts/" class="group text-center">
+                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
+                             <!-- SVG Icon for Desserts -->
+                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0c-.454-.303-.977-.454-1.5-.454V5.704c0-1.105.895-2 2-2h10c1.105 0 2 .895 2 2v9.842zM9 13.5v-2.5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V11a.5.5 0 01-.5.5h-2a.5.5 0 01-.5-.5z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Desserts</h3>
+                    </a>
+                    <!-- Category Card -->
+                    <a href="http://flavorly-bites.local/category/dinners/" class="group text-center">
+                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
+                             <!-- SVG Icon for Dinners -->
+                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Dinners</h3>
+                    </a>
+                    <!-- Category Card -->
+                    <a href="http://flavorly-bites.local/category/salads/" class="group text-center">
+                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
+                             <!-- SVG Icon for Salads -->
+                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16M4 8h16M4 12h7m-7 4h16" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Salads</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- About Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Flavorly Bites</h4>
+                    <p class="text-gray-400">Bringing you the best recipes from our kitchen to yours. Simple, delicious, and always a flavorful bite.</p>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="http://flavorly-bites.local/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="http://flavorly-bites.local/" class="text-gray-400 hover:text-white">Recipes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Categories</h4>
+                    <ul class="space-y-2">
+                        <li><a href="http://flavorly-bites.local/category/breakfasts/" class="text-gray-400 hover:text-white">Breakfast</a></li>
+                        <li><a href="http://flavorly-bites.local/category/dinners/" class="text-gray-400 hover:text-white">Dinners</a></li>
+                        <li><a href="http://flavorly-bites.local/category/desserts/" class="text-gray-400 hover:text-white">Desserts</a></li>
+                        <li><a href="http://flavorly-bites.local/category/salads/" class="text-gray-400 hover:text-white">Salads</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Subscribe to our Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Get the latest recipes delivered straight to your inbox.</p>
+                    <form>
+                        <div class="flex">
+                            <input type="email" class="w-full rounded-l-md px-4 py-2 text-gray-800" placeholder="your.email@example.com">
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r-md">Go</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-center">
+                <p class="text-gray-400">&copy; 2025 Flavorly Bites. All Rights Reserved.</p>
+                <!-- Social Media Icons -->
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Pinterest">
+                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.103 17.552c-1.124-.13-1.428-.799-2.158-1.597-.563-.615-.873-1.212-.873-1.842 0-2.433 2.112-3.834 2.112-5.228 0-.9-.426-1.89-1.41-1.89-.966 0-1.62.748-1.62 1.618 0 .408-.094.757-.271 1.139-.247.54-.742.63-1.03.482-.8-.412-1.212-1.39-1.212-2.52 0-2.015 1.55-3.834 3.935-3.834 2.333 0 3.737 1.254 3.737 3.328 0 1.597-.733 3.655-2.025 3.655-.426 0-.825-.375-.825-.852 0-.615.347-1.22.502-1.628.188-.472.224-1.037.104-1.5-.168-.645-.712-1.22-1.38-1.22-.733 0-1.343.832-1.343 1.935 0 .472.047.788.168.994.224.413.563.852.563 1.305 0 .615-.224 1.102-.375 1.62-.224.773-.188 1.635.094 2.308.281.656.928 1.028 1.9.966.832-.056 1.343-.375 1.935-1.003.3-.31.525-.713.68-1.15.07-.188.104-.385.104-.572 0-.12-.01-.24-.02-.36 0-.07.01-.13.01-.2 0-.21-.02-.42-.04-.63.67.12 1.33.2 1.97.23 1.5.07 2.8-.2 3.82-.87.97-.62 1.54-1.6 1.54-2.73 0-1.92-1.33-3.6-3.78-3.6s-3.78 1.68-3.78 3.6c0 1.28.7 2.45 1.83 2.87.1.04.18.06.27.06.18 0 .36-.06.51-.18.23-.17.31-.47.19-.72-.09-.17-.23-.3-.39-.39-1.02-.56-1.64-1.57-1.64-2.64 0-1.03.73-1.97 1.8-1.97s1.8.94 1.8 1.97c0 .7-.31 1.33-.87 1.73-.55.4-1.29.58-2.1.53-.7-.05-1.34-.14-1.92-.22-1.42-.2-1.43-.22-1.59.56-.03.14-.05.28-.05.42z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    <script>
+        // JavaScript for mobile menu toggle.
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if(mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</ht
