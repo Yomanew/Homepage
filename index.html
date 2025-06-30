@@ -1,302 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flavorly Bites – Flavorful Bite Every Time</title>
+    <title>Flavorly Bites - Flavorful Bite Every Time</title>
     
-    <!-- Tailwind CSS for styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Favicon from original site -->
-    <link rel="icon" href="http://flavorly-bites.local/wp-content/uploads/2025/06/FlavorlyBites-150x150.png" sizes="32x32" />
+    <!-- Favicon Links -->
+    <link rel="icon" href="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites-150x150.png" sizes="32x32">
+    <link rel="icon" href="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites-300x300.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites-300x300.png">
+    <meta name="msapplication-TileImage" content="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites-300x300.png">
 
     <style>
-        /* CSS to hide the theme's header, footer, and remove extra spacing */
-        #masthead, #colophon, .entry-hero {
-            display: none !important;
-        }
-
-        /* Remove margin added by WordPress admin bar */
-        html {
-            margin-top: 0 !important;
-        }
-
-        /* Remove theme's content wrappers and spacing */
-        body.content-style-boxed .site-container, 
-        .content-area,
-        .content-wrap,
-        .entry-content-wrap,
-        body.content-style-boxed #primary.content-area,
-        .entry-content {
-            margin: 0 !important;
-            padding: 0 !important;
-            max-width: 100% !important;
-        }
-        
-        .entry.single-entry, 
-        .content-style-boxed .content-wrap {
-            padding: 0 !important;
-            box-shadow: none !important;
-            margin-bottom: 0 !important;
-        }
-
-        /* Custom styles for the new design */
+        /* Custom styles for a more refined design */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F7FAFC; /* Light grey background from original theme */
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFFDF8; /* A very light cream background */
+            color: #4A4A4A; /* Softer black for text */
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
+        .font-lora {
+            font-family: 'Lora', serif;
         }
         .hero-bg {
-            background-image: url('https://images.unsplash.com/photo-1598866594240-a_27d2a18824?q=80&w=2070&auto=format&fit=crop');
+            /* A more appetizing hero image with a soft gradient */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
             background-size: cover;
             background-position: center;
         }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .category-card-hover:hover .category-icon {
+             transform: scale(1.1) rotate(5deg);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #D97706; /* Amber-700 for hover */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #D97706;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        /* Custom focus ring color */
+        .focus-ring-amber:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #FBBF24; /* Amber-400 */
+        }
+        /* --- New Mobile Menu Styles --- */
+        #mobile-menu {
+            transition: max-height 0.4s ease-in-out, padding-top 0.4s ease-in-out, padding-bottom 0.4s ease-in-out, border-top-width 0.4s ease-in-out;
+            overflow-y: hidden;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-top-width: 0px;
+        }
+        #mobile-menu.open {
+            max-height: 500px; /* Generous height for menu content */
+            padding-top: 0.5rem;  /* Tailwind's pt-2 */
+            padding-bottom: 1rem; /* Tailwind's pb-4 */
+            border-top-width: 1px;
+        }
     </style>
 </head>
-<body class="text-gray-700">
+<body class="antialiased">
 
-    <!-- Header Section -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <!-- Logo and Site Title -->
-            <a href="http://flavorly-bites.local/" class="flex items-center space-x-3">
-                <img src="http://flavorly-bites.local/wp-content/uploads/2025/06/FlavorlyBites.png" alt="Flavorly Bites Logo" class="h-12 w-12"  onerror="this.onerror=null;this.src='https://placehold.co/100x100/f3b899/4A5568?text=FB';">
-                <span class="text-2xl font-bold text-gray-800 font-serif">Flavorly Bites</span>
+            <a href="/" class="flex items-center space-x-3">
+                 <img src="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites.png" alt="Flavorly Bites Logo" class="h-12 w-12"
+                 onerror="this.onerror=null;this.src='https://placehold.co/60x60/EAB308/FFFFFF?text=FB&font=lora';">
+                <div class="hidden sm:block">
+                    <h1 class="text-2xl font-bold font-lora text-gray-800">Flavorly Bites</h1>
+                    <p class="text-sm text-gray-500 -mt-1">A Flavorful Bite, Every Time.</p>
+                </div>
             </a>
-            
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="http://flavorly-bites.local/" class="text-gray-600 hover:text-orange-500 transition duration-300">Home</a>
-                <a href="http://flavorly-bites.local/" class="text-gray-600 hover:text-orange-500 transition duration-300">Recipes</a>
-                <a href="#" class="text-gray-600 hover:text-orange-500 transition duration-300">About</a>
-                <a href="#" class="text-gray-600 hover:text-orange-500 transition duration-300">Contact</a>
-            </nav>
-
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="/category/breakfasts/" class="nav-link text-gray-600 font-medium">Breakfasts</a>
+                <a href="/category/desserts/" class="nav-link text-gray-600 font-medium">Desserts</a>
+                <a href="/category/dinners/" class="nav-link text-gray-600 font-medium">Dinners</a>
+                <a href="/category/salads/" class="nav-link text-gray-600 font-medium">Salads</a>
+                <a href="/category/summer-recipes/" class="nav-link text-gray-600 font-medium">Summer</a>
+                <a href="/category/fall-recipes/" class="nav-link text-gray-600 font-medium">Fall</a>
             </div>
-        </div>
-        
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <nav class="px-4 pt-2 pb-4 space-y-2">
-                <a href="http://flavorly-bites.local/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Home</a>
-                <a href="http://flavorly-bites.local/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Recipes</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">About</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-orange-500">Contact</a>
-            </nav>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-amber-600 hover:bg-amber-50 focus:outline-none focus-ring-amber">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Navigation (REVISED HTML) -->
+        <div id="mobile-menu" class="lg:hidden px-6 border-gray-200">
+            <a href="/category/breakfasts/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Breakfasts</a>
+            <a href="/category/desserts/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Desserts</a>
+            <a href="/category/dinners/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Dinners</a>
+            <a href="/category/salads/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Salads</a>
+            <a href="/category/summer-recipes/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Summer Recipes</a>
+            <a href="/category/fall-recipes/" class="block py-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md px-2">Fall Recipes</a>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="hero-bg text-white">
-            <div class="bg-black bg-opacity-40 min-h-[60vh] flex items-center">
-                <div class="container mx-auto px-6 text-center">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-4">A Flavorful Bite, Every Time</h1>
-                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Discover delicious and easy-to-make recipes that will inspire you to get creative in the kitchen.</p>
-                    <a href="http://flavorly-bites.local/" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Recipes</a>
+        <section class="hero-bg text-white relative">
+            <div class="container mx-auto px-6 py-32 md:py-48 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold font-lora leading-tight mb-4 text-shadow-lg">Discover Delicious Recipes</h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200">From hearty breakfasts to decadent desserts, find the perfect recipe for any occasion.</p>
+                <a href="#latest-posts" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-10 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-xl">Explore Recipes</a>
+            </div>
+        </section>
+                
+        <!-- Author Section -->
+        <section class="bg-amber-50/50 py-20 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 max-w-4xl mx-auto">
+                    <div class="relative">
+                        <div class="absolute -inset-2 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full blur opacity-50"></div>
+                        <img class="relative w-40 h-40 md:w-48 md:h-48 rounded-full object-cover ring-4 ring-white shadow-2xl" src="https://flavorlybites.com/wp-content/uploads/2025/06/Sarah.png" alt="Author Image - Sarah"
+                        onerror="this.onerror=null;this.src='https://placehold.co/180x180/FFFFFF/333333?text=S';">
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-4xl lg:text-5xl font-lora font-bold text-gray-800">Hi, I'm Sarah</h3>
+                        <p class="mt-4 text-gray-600 leading-relaxed max-w-lg">I’m the founder of Flavorly Bites, a passionate home cook on a mission to make flavorful, feel-good food that’s easy to create and impossible to forget.</p>
+                        <div class="mt-6 flex justify-center md:justify-start space-x-5">
+                            <a href="https://www.pinterest.com/FlavorlyBites/" target="_blank" aria-label="Pinterest" class="text-gray-400 hover:text-red-600 transition duration-300 transform hover:scale-110">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.373 0 12c0 5.084 3.163 9.423 7.623 11.13-.105-.946-.2-2.4.042-3.437.218-.934 1.4-5.953 1.4-5.953s-.357-.715-.357-1.77c0-1.656.96-2.894 2.155-2.894 1.017 0 1.507.763 1.507 1.676 0 1.02-.65 2.543-.985 3.96-.28 1.19.595 2.16 1.765 2.16 2.118 0 3.75-2.234 3.75-5.455 0-2.25-1.524-3.94-4.66-3.94-3.367 0-5.48 2.52-5.48 5.12 0 1.02.39 2.12.876 2.72a.354.354 0 0 1 .08.34c-.09.37-.3 1.19-.34 1.36-.05.22-.17.27-.39.16-1.45-.67-2.35-2.77-2.35-4.464 0-3.63 2.64-6.96 7.615-6.96 3.992 0 7.095 2.865 7.095 6.7 0 3.995-2.52 7.215-6.03 7.215-1.18 0-2.29-.615-2.67-1.342l-.72 2.74c-.26 1.01-.97 2.27-1.44 3.04 1.08.34 2.22.52 3.41.52 6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                            </a>
+                            <a href="/cdn-cgi/l/email-protection#95e6f4e7f4fdd5f3f9f4e3fae7f9ecf7fce1f0e6bbf6faf8" aria-label="Email" class="text-gray-400 hover:text-amber-600 transition duration-300 transform hover:scale-110">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1.6 4.85L12 13.5 5.6 8.85a.993.993 0 011.2-1.6L12 11.2l5.2-3.95a.993.993 0 011.2 1.6z"/></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Latest Recipes Section -->
-        <section class="py-16 bg-white">
+        <!-- Featured Categories -->
+        <section class="py-20 sm:py-24" id="categories">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Latest Recipes</h2>
+                <h3 class="text-4xl font-lora font-bold text-center mb-16">Explore by Category</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 text-center">
+                    <!-- Breakfasts Icon -->
+                    <a href="/category/breakfasts/" class="group category-card-hover">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                            <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="m15 5 4 4"></path><path d="M22 6h-3M22 10h-2M22 14h-1"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Breakfasts</h4>
+                        </div>
+                    </a>
+                    <!-- Desserts Icon -->
+                     <a href="/category/desserts/" class="group category-card-hover">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                             <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-8 0 4 4 0 0 1-8 0 4 4 0 0 1-8 0A10 10 0 0 0 12 2Z"></path><path d="M20 12c0 4.4-3.6 8-8 8s-8-3.6-8-8"></path><path d="M12 12a4 4 0 0 0-8 0"></path><path d="M12 12a4 4 0 0 1 8 0"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Desserts</h4>
+                        </div>
+                    </a>
+                    <!-- Dinners Icon -->
+                     <a href="/category/dinners/" class="group category-card-hover">
+                         <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                            <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path><path d="M7 21v-2"></path><path d="M12 21v-2"></path><path d="M17 21v-2"></path><path d="M12 4v8"></path><path d="m16 8-3-3-3 3"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Dinners</h4>
+                        </div>
+                    </a>
+                    <!-- Salads Icon -->
+                     <a href="/category/salads/" class="group category-card-hover">
+                         <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                            <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><path d="M8 2v16"></path><path d="M16 2v16"></path><path d="M3.4 12H20"></path><path d="M18 12a4 4 0 1 1-8 0"></path><path d="M10 12a4 4 0 1 1-8 0"></path><path d="M14 12a4 4 0 1 1-8 0"></path><path d="M12 18a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path><path d="M22 12h-2"></path><path d="M2 12H4"></path><path d="M12 2V4"></path><path d="M12 20v-2"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Salads</h4>
+                        </div>
+                    </a>
+                    <!-- Summer Icon -->
+                    <a href="/category/summer-recipes/" class="group category-card-hover">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                             <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Summer</h4>
+                        </div>
+                    </a>
+                    <!-- Fall Icon -->
+                    <a href="/category/fall-recipes/" class="group category-card-hover">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg transition duration-300 hover:shadow-amber-200/50 flex flex-col items-center justify-center h-full">
+                             <div class="category-icon text-amber-500 mb-4 transition-transform duration-300 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20"><path d="M11 6.5A5.5 5.5 0 0 1 16.5 12v0a5.5 5.5 0 0 1-5.5 5.5h-2A5.5 5.5 0 0 1 3.5 12v0A5.5 5.5 0 0 1 9 6.5h2Z"></path><path d="M11 6.5V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1.5"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg text-gray-700">Fall</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Posts Section -->
+        <section id="latest-posts" class="bg-amber-50/50 py-20 sm:py-24">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-lora font-bold text-center mb-16">Our Latest Recipes</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    
-                    <!-- Recipe Card 1: Goat Cheese Breakfast -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/">
-                            <img src="https://images.unsplash.com/photo-1598589973824-353605555e3e?q=80&w=1974&auto=format&fit=crop" alt="Toast with goat cheese and figs" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/a3e635/4A5568?text=Goat+Cheese+Breakfast';">
+                    <!-- Recipe Card 1 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                        <a href="/goat-cheese-breakfast-ideas/" class="block overflow-hidden">
+                            <img src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Goat Cheese Breakfast Ideas" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
                         </a>
-                        <div class="p-6">
-                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/" class="hover:text-orange-500">13 Goat Cheese Breakfast Ideas</a></h3>
-                            <p class="text-gray-600 mb-4">These ideas will make you jump out of bed, ready for a delicious start to your day.</p>
-                            <a href="http://flavorly-bites.local/goat-cheese-breakfast-ideas/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/goat-cheese-breakfast-ideas/">13 Goat Cheese Breakfast Ideas That’ll Make You Jump Out of Bed</a>
+                            </h4>
+                            <p class="text-gray-500 mt-3 text-sm">By Sarah on June 23, 2025</p>
                         </div>
-                    </div>
-
-                    <!-- Recipe Card 2: High-Protein Vegetarian Breakfast -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/">
-                            <img src="https://images.unsplash.com/photo-1484980972926-ed5a6c086127?q=80&w=2070&auto=format&fit=crop" alt="High-Protein Vegetarian Breakfast Bowl" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fbbf24/4A5568?text=Vegetarian+Bowl';">
+                    </article>
+                    <!-- Recipe Card 2 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                        <a href="/high-protein-vegetarian-breakfasts/" class="block overflow-hidden">
+                            <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="High-Protein Vegetarian Breakfasts" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
                         </a>
-                        <div class="p-6">
-                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/" class="hover:text-orange-500">High-Protein Vegetarian Breakfasts</a></h3>
-                            <p class="text-gray-600 mb-4">You’ll never miss the meat with these satisfying and protein-packed breakfast options.</p>
-                            <a href="http://flavorly-bites.local/high-protein-vegetarian-breakfasts/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/high-protein-vegetarian-breakfasts/">13 High-Protein Vegetarian Breakfast Ideas</a>
+                            </h4>
+                            <p class="text-gray-500 mt-3 text-sm">By Sarah on June 23, 2025</p>
                         </div>
-                    </div>
-
-                    <!-- Recipe Card 3: Breakfast Pizza -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/">
-                            <img src="https://images.unsplash.com/photo-1588315029704-3434b3e5157b?q=80&w=1964&auto=format&fit=crop" alt="Breakfast pizza with eggs and greens" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f87171/4A5568?text=Breakfast+Pizza';">
+                    </article>
+                    <!-- Recipe Card 3 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                        <a href="/pizza-crust-breakfast-ideas/" class="block overflow-hidden">
+                           <img src="https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Pizza Crust Breakfast Ideas" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
                         </a>
-                        <div class="p-6">
-                            <span class="text-sm font-semibold text-orange-500">Breakfasts</span>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-2 mb-3"><a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/" class="hover:text-orange-500">11 Genius Pizza Crust Breakfast Ideas</a></h3>
-                            <p class="text-gray-600 mb-4">A creative and fun way to start your day using a simple pizza crust.</p>
-                            <a href="http://flavorly-bites.local/pizza-crust-breakfast-ideas/" class="font-semibold text-orange-500 hover:text-orange-600">Read More &rarr;</a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/pizza-crust-breakfast-ideas/">11 Genius Pizza Crust Breakfast Ideas</a>
+                            </h4>
+                            <p class="text-gray-500 mt-3 text-sm">By Sarah on June 23, 2025</p>
                         </div>
-                    </div>
+                    </article>
+                    <!-- Recipe Card 4 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                        <a href="/office-party-breakfast-ideas/" class="block overflow-hidden">
+                             <img src="https://images.pexels.com/photos/803963/pexels-photo-803963.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Office Party Breakfast Ideas" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/office-party-breakfast-ideas/">15 Irresistible Office Party Breakfast Ideas</a>
+                            </h4>
+                            <p class="text-gray-500 mt-3 text-sm">By Sarah on June 23, 2025</p>
+                        </div>
+                    </article>
+                     <!-- Recipe Card 5 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                         <a href="/healthy-kids-breakfast-ideas/" class="block overflow-hidden">
+                             <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Healthy Kids Breakfast Ideas" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/healthy-kids-breakfast-ideas/">17 Genius Healthy Kids Breakfast Ideas</a>
+                            </h4>
+                             <p class="text-gray-500 mt-3 text-sm">By Sarah on June 23, 2025</p>
+                        </div>
+                    </article>
+                     <!-- Recipe Card 6 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect flex flex-col">
+                        <a href="/keto-diet-breakfast-ideas/" class="block overflow-hidden">
+                             <img src="https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Keto Breakfast Ideas" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 py-1 px-3 rounded-full self-start">Breakfasts</span>
+                            <h4 class="mt-4 text-xl font-bold font-lora text-gray-800 flex-grow hover:text-amber-700 transition">
+                                <a href="/keto-diet-breakfast-ideas/">17 Keto Breakfast Ideas That’ll Make You Jump Out of Bed</a>
+                            </h4>
+                             <p class="text-gray-500 mt-3 text-sm">By Sarah on June 21, 2025</p>
+                        </div>
+                    </article>
                 </div>
-                <div class="text-center mt-12">
-                     <a href="http://flavorly-bites.local/" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">View All Recipes</a>
+                 <!-- Pagination -->
+                <div class="mt-16 flex justify-center">
+                    <nav class="flex items-center space-x-2" aria-label="Pagination">
+                        <span aria-current="page" class="bg-amber-500 text-white font-semibold w-11 h-11 flex items-center justify-center rounded-lg shadow">1</span>
+                        <a href="/page/2/" class="text-gray-600 hover:bg-amber-100 hover:text-amber-600 font-semibold w-11 h-11 flex items-center justify-center rounded-lg transition">2</a>
+                        <a href="/page/3/" class="text-gray-600 hover:bg-amber-100 hover:text-amber-600 font-semibold w-11 h-11 flex items-center justify-center rounded-lg transition">3</a>
+                        <span class="text-gray-500 font-semibold w-11 h-11 flex items-center justify-center rounded-lg">...</span>
+                        <a href="/page/17/" class="text-gray-600 hover:bg-amber-100 hover:text-amber-600 font-semibold w-11 h-11 flex items-center justify-center rounded-lg transition">17</a>
+                        <a href="/page/2/" class="text-gray-500 hover:bg-amber-100 hover:text-amber-600 p-2 rounded-lg transition">
+                            <span class="sr-only">Next</span>
+                            <svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </nav>
                 </div>
             </div>
         </section>
-
-        <!-- About Me Section -->
-        <section class="py-16 bg-orange-50">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-xl shadow-lg">
-                    <div class="md:w-1/3 text-center mb-6 md:mb-0">
-                        <img src="http://flavorly-bites.local/wp-content/uploads/2025/06/Sarah-128x128.png" alt="Sarah, the author" class="w-40 h-40 rounded-full mx-auto shadow-md border-4 border-white" onerror="this.onerror=null;this.src='https://placehold.co/128x128/f3b899/FFFFFF?text=Sarah';">
-                    </div>
-                    <div class="md:w-2/3 md:pl-10 text-center md:text-left">
-                        <h2 class="text-4xl font-bold text-gray-800 mb-4">Hi, I'm Sarah!</h2>
-                        <p class="text-gray-600 text-lg mb-6">Welcome to Flavorly Bites! I'm a passionate home cook dedicated to creating and sharing recipes that are both approachable and incredibly tasty. My goal is to bring joy to your kitchen, one flavorful bite at a time. </p>
-                        <a href="#" class="font-bold text-orange-500 text-lg hover:underline">Learn more about me</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Recipe Categories Section -->
-        <section class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Browse By Category</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <!-- Category Card -->
-                    <a href="http://flavorly-bites.local/category/summer-recipes/" class="group text-center">
-                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
-                            <!-- SVG Icon for Summer Recipes -->
-                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Summer Recipes</h3>
-                    </a>
-                    <!-- Category Card -->
-                    <a href="http://flavorly-bites.local/category/desserts/" class="group text-center">
-                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
-                             <!-- SVG Icon for Desserts -->
-                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0c-.454-.303-.977-.454-1.5-.454V5.704c0-1.105.895-2 2-2h10c1.105 0 2 .895 2 2v9.842zM9 13.5v-2.5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V11a.5.5 0 01-.5.5h-2a.5.5 0 01-.5-.5z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Desserts</h3>
-                    </a>
-                    <!-- Category Card -->
-                    <a href="http://flavorly-bites.local/category/dinners/" class="group text-center">
-                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
-                             <!-- SVG Icon for Dinners -->
-                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Dinners</h3>
-                    </a>
-                    <!-- Category Card -->
-                    <a href="http://flavorly-bites.local/category/salads/" class="group text-center">
-                        <div class="bg-white p-6 rounded-full w-32 h-32 mx-auto flex items-center justify-center shadow-lg group-hover:bg-orange-500 transition-colors duration-300">
-                             <!-- SVG Icon for Salads -->
-                            <svg class="w-16 h-16 text-orange-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16M4 8h16M4 12h7m-7 4h16" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mt-4 group-hover:text-orange-500">Salads</h3>
-                    </a>
-                </div>
-            </div>
-        </section>
-
     </main>
     
     <!-- Footer -->
     <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- About Column -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Flavorly Bites</h4>
-                    <p class="text-gray-400">Bringing you the best recipes from our kitchen to yours. Simple, delicious, and always a flavorful bite.</p>
-                </div>
-
-                <!-- Quick Links Column -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="http://flavorly-bites.local/" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="http://flavorly-bites.local/" class="text-gray-400 hover:text-white">Recipes</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Categories Column -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Categories</h4>
-                    <ul class="space-y-2">
-                        <li><a href="http://flavorly-bites.local/category/breakfasts/" class="text-gray-400 hover:text-white">Breakfast</a></li>
-                        <li><a href="http://flavorly-bites.local/category/dinners/" class="text-gray-400 hover:text-white">Dinners</a></li>
-                        <li><a href="http://flavorly-bites.local/category/desserts/" class="text-gray-400 hover:text-white">Desserts</a></li>
-                        <li><a href="http://flavorly-bites.local/category/salads/" class="text-gray-400 hover:text-white">Salads</a></li>
-                    </ul>
-                </div>
-
-                <!-- Newsletter Column -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Subscribe to our Newsletter</h4>
-                    <p class="text-gray-400 mb-4">Get the latest recipes delivered straight to your inbox.</p>
-                    <form>
-                        <div class="flex">
-                            <input type="email" class="w-full rounded-l-md px-4 py-2 text-gray-800" placeholder="your.email@example.com">
-                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r-md">Go</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-center">
-                <p class="text-gray-400">&copy; 2025 Flavorly Bites. All Rights Reserved.</p>
-                <!-- Social Media Icons -->
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center space-y-4 md:space-y-0">
+                <!-- Left: Logo -->
+                <div class="w-full md:w-1/3 md:text-left">
+                    <a href="/" class="flex items-center justify-center md:justify-start space-x-3">
+                        <img src="https://flavorlybites.com/wp-content/uploads/2025/06/FlavorlyBites.png" alt="Flavorly Bites Logo" class="h-10 w-10" onerror="this.onerror=null;this.src='https://placehold.co/50x50/FFFFFF/333333?text=FB&font=lora';">
+                        <span class="text-xl font-lora font-bold">Flavorly Bites</span>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Pinterest">
-                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.103 17.552c-1.124-.13-1.428-.799-2.158-1.597-.563-.615-.873-1.212-.873-1.842 0-2.433 2.112-3.834 2.112-5.228 0-.9-.426-1.89-1.41-1.89-.966 0-1.62.748-1.62 1.618 0 .408-.094.757-.271 1.139-.247.54-.742.63-1.03.482-.8-.412-1.212-1.39-1.212-2.52 0-2.015 1.55-3.834 3.935-3.834 2.333 0 3.737 1.254 3.737 3.328 0 1.597-.733 3.655-2.025 3.655-.426 0-.825-.375-.825-.852 0-.615.347-1.22.502-1.628.188-.472.224-1.037.104-1.5-.168-.645-.712-1.22-1.38-1.22-.733 0-1.343.832-1.343 1.935 0 .472.047.788.168.994.224.413.563.852.563 1.305 0 .615-.224 1.102-.375 1.62-.224.773-.188 1.635.094 2.308.281.656.928 1.028 1.9.966.832-.056 1.343-.375 1.935-1.003.3-.31.525-.713.68-1.15.07-.188.104-.385.104-.572 0-.12-.01-.24-.02-.36 0-.07.01-.13.01-.2 0-.21-.02-.42-.04-.63.67.12 1.33.2 1.97.23 1.5.07 2.8-.2 3.82-.87.97-.62 1.54-1.6 1.54-2.73 0-1.92-1.33-3.6-3.78-3.6s-3.78 1.68-3.78 3.6c0 1.28.7 2.45 1.83 2.87.1.04.18.06.27.06.18 0 .36-.06.51-.18.23-.17.31-.47.19-.72-.09-.17-.23-.3-.39-.39-1.02-.56-1.64-1.57-1.64-2.64 0-1.03.73-1.97 1.8-1.97s1.8.94 1.8 1.97c0 .7-.31 1.33-.87 1.73-.55.4-1.29.58-2.1.53-.7-.05-1.34-.14-1.92-.22-1.42-.2-1.43-.22-1.59.56-.03.14-.05.28-.05.42z"/></svg>
-                        </a>
-                    </div>
+                </div>
+                <!-- Center: Copyright -->
+                <div class="w-full md:w-1/3 text-gray-400 text-sm">
+                    <p>&copy; 2025 Flavorly Bites. All Rights Reserved.</p>
+                </div>
+                 <!-- Right: Spacer -->
+                 <div class="w-full md:w-1/3">
+                    <!-- This space is intentionally left empty -->
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="hidden fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 focus:outline-none focus-ring-amber">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+        
+    <!-- REVISED SCRIPT -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        // JavaScript for mobile menu toggle.
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        if(mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+            // Store original and close icons
+            const originalIcon = mobileMenuButton.innerHTML;
+            const closeIcon = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+
+            // Event listener for the menu button
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevents the document click listener from firing immediately
+                const isOpen = mobileMenu.classList.toggle('open');
+                mobileMenuButton.innerHTML = isOpen ? closeIcon : originalIcon;
             });
-        }
+
+            // Event listener for clicks on the document
+            document.addEventListener('click', (e) => {
+                const isMenuOpen = mobileMenu.classList.contains('open');
+                // If the menu is open and the click is outside the menu and not on the button itself
+                if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                    mobileMenuButton.innerHTML = originalIcon;
+                }
+            });
+
+            // --- Scroll to top button Logic ---
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopButton.classList.remove('hidden');
+                } else {
+                    scrollToTopButton.classList.add('hidden');
+                }
+            });
+            
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
     </script>
 </body>
-</ht
+</html>
